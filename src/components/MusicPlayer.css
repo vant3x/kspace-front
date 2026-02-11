@@ -1,0 +1,231 @@
+.music-player {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    /* Moved to right */
+    left: auto;
+    /* Reset left */
+    width: 380px;
+    /* Slightly reduced width */
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    padding: 10px;
+    color: white;
+    transition: all 0.3s ease;
+    z-index: 2000;
+    /* Set high to be above almost everything except perhaps critical overlays */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.music-player.expanded {
+    height: auto;
+    min-height: 200px;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player-art {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    /* Slightly rounded corners */
+    overflow: hidden;
+    margin-right: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.player-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.player-art img.spinning {
+    border-radius: 50%;
+    /* Make it circular when playing */
+    animation: rotate-art 10s linear infinite;
+}
+
+@keyframes rotate-art {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-right: 15px;
+    justify-content: center;
+    min-width: 80px;
+    overflow: hidden;
+}
+
+.track-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+.track-artist {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.control-btn,
+.play-btn,
+.list-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover,
+.list-btn:hover {
+    color: #fbbf24;
+}
+
+.play-btn {
+    background: #fbbf24 !important;
+    border-radius: 50%;
+    width: 42px;
+    /* Increased size */
+    height: 42px;
+    /* Increased size */
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.play-btn svg {
+    color: #000 !important;
+    fill: #000 !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: block;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    background: #fff !important;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+}
+
+.visualizer {
+    display: flex;
+    gap: 3px;
+    height: 15px;
+    align-items: flex-end;
+    margin-left: 12px;
+    width: 25px;
+    /* Fixed width to prevent shifting */
+    flex-shrink: 0;
+}
+
+.bar {
+    width: 3px;
+    background: #fbbf24;
+    /* Change from purple to gold */
+    animation: visualize 1s infinite;
+}
+
+.bar:nth-child(1) {
+    animation-delay: 0.1s;
+    height: 10px;
+}
+
+.bar:nth-child(2) {
+    animation-delay: 0.3s;
+    height: 15px;
+}
+
+.bar:nth-child(3) {
+    animation-delay: 0.2s;
+    height: 8px;
+}
+
+.bar:nth-child(4) {
+    animation-delay: 0.4s;
+    height: 12px;
+}
+
+@keyframes visualize {
+
+    0%,
+    100% {
+        height: 5px;
+    }
+
+    50% {
+        height: 100%;
+    }
+}
+
+.playlist {
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.playlist h3 {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.playlist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.playlist li {
+    font-size: 0.8rem;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.playlist li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.playlist li.active {
+    color: #fbbf24;
+    /* Change from purple to gold */
+    font-weight: bold;
+}

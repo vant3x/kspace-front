@@ -1,0 +1,125 @@
+.protection-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #050505;
+  /* Deep black, no gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Clean, standard font */
+  overflow: hidden;
+}
+
+.login-container {
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  /* Removed glass background and borders for cleaner look */
+}
+
+/* Launching state - just fade out */
+.login-container.launching {
+  pointer-events: none;
+}
+
+.minimal-title {
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  color: #888;
+  font-weight: 300;
+}
+
+.icon-wrapper.minimalist {
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.minimal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.minimal-form input {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 2px;
+  transition: border-color 0.3s ease;
+  outline: none;
+  border-radius: 0;
+  /* Clear rounded corners */
+}
+
+.minimal-form input::placeholder {
+  color: #333;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.minimal-form input:focus {
+  border-bottom-color: #fbbf24;
+  /* Subtle gold */
+}
+
+.minimal-form input.error {
+  border-bottom-color: #ef4444;
+  animation: shake 0.5s;
+}
+
+.minimal-btn {
+  background: transparent;
+  border: 1px solid #333;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.minimal-btn:hover:not(:disabled) {
+  border-color: #fbbf24;
+  color: #fbbf24;
+}
+
+.minimal-btn:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}

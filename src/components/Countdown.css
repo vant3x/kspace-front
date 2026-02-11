@@ -1,0 +1,128 @@
+.countdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.countdown-label {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #fbbf24;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.countdown-units {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.countdown-value {
+    font-family: 'Courier New', monospace;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+.countdown-unit-label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: #666;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+}
+
+.countdown-separator {
+    font-size: 2rem;
+    color: #fbbf24;
+    font-weight: bold;
+    position: absolute;
+    right: -0.7rem;
+    top: 0.5rem;
+    opacity: 0.6;
+}
+
+/* Mission Variant */
+.countdown-mission {
+    margin: 0.2rem 0;
+}
+
+.countdown-mission .countdown-value {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.4rem;
+    min-width: 35px;
+    background: rgba(251, 191, 36, 0.05);
+    border-color: rgba(251, 191, 36, 0.3);
+}
+
+.countdown-mission .countdown-unit-label {
+    color: #666;
+    font-size: 0.45rem;
+    letter-spacing: 1px;
+}
+
+.countdown-mission .countdown-label {
+    font-size: 0.55rem;
+}
+
+.countdown-mission .countdown-separator {
+    font-size: 1rem;
+    right: -0.6rem;
+    top: 0.3rem;
+}
+
+/* Welcome Variant */
+.countdown-default {
+    margin: 1rem 0;
+}
+
+.countdown-default .countdown-value {
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 45px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.countdown-default .countdown-unit-label {
+    font-size: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .countdown-value {
+        font-size: 1.8rem;
+        padding: 0.4rem 0.6rem;
+        min-width: 60px;
+    }
+
+    .countdown-default .countdown-value {
+        font-size: 2rem;
+        min-width: 70px;
+    }
+
+    .countdown-units {
+        gap: 0.5rem;
+    }
+
+    .countdown-separator {
+        font-size: 1.5rem;
+        right: -0.4rem;
+    }
+}
