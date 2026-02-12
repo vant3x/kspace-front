@@ -94,10 +94,10 @@ function PurpleParticleField() {
     );
 }
 
-// Animated Particle Field - Golden Chemistry Particles
-function GoldenParticleField() {
+// Animated Particle Field - Pink Sparkles
+function PinkParticleField() {
     const points = useRef();
-    const particleCount = 500;
+    const particleCount = 400;
 
     const particles = useMemo(() => {
         const temp = [];
@@ -112,8 +112,8 @@ function GoldenParticleField() {
 
     useFrame((state) => {
         if (points.current) {
-            points.current.rotation.y = state.clock.elapsedTime * 0.05;
-            points.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.2;
+            points.current.rotation.y = state.clock.elapsedTime * 0.04;
+            points.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.1) * 0.1;
         }
     });
 
@@ -128,11 +128,11 @@ function GoldenParticleField() {
                 />
             </bufferGeometry>
             <pointsMaterial
-                size={0.15}
-                color="#fbbf24"
+                size={0.12}
+                color="#f472b6"
                 sizeAttenuation
                 transparent
-                opacity={0.4}
+                opacity={0.5}
                 blending={THREE.AdditiveBlending}
             />
         </points>
@@ -173,11 +173,11 @@ function DNAHelix() {
                 <group key={i}>
                     <mesh position={point.pos1}>
                         <sphereGeometry args={[0.15, 8, 8]} />
-                        <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.5} />
+                        <meshStandardMaterial color="#d946ef" emissive="#d946ef" emissiveIntensity={0.5} />
                     </mesh>
                     <mesh position={point.pos2}>
                         <sphereGeometry args={[0.15, 8, 8]} />
-                        <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.5} />
+                        <meshStandardMaterial color="#d946ef" emissive="#d946ef" emissiveIntensity={0.5} />
                     </mesh>
                     <mesh position={[(point.pos1[0] + point.pos2[0]) / 2, point.pos1[1], (point.pos1[2] + point.pos2[2]) / 2]}>
                         <cylinderGeometry args={[0.03, 0.03, 4, 8]} />
@@ -213,17 +213,17 @@ function Scene3D() {
         <>
             <ambientLight intensity={0.4} />
             <pointLight position={[10, 10, 10]} intensity={1.5} color="#d946ef" />
-            <pointLight position={[-10, -10, -10]} intensity={0.8} color="#fbbf24" />
+            <pointLight position={[-10, -10, -10]} intensity={0.8} color="#f472b6" />
             <pointLight position={[0, 5, -5]} intensity={0.5} color="#8b5cf6" />
 
             {/* Layered particle systems for depth */}
             <WhiteStarField />
             <PurpleParticleField />
-            <GoldenParticleField />
+            <PinkParticleField />
             <DNAHelix />
 
             <FloatingAtom position={[-6, 2, -3]} color="#c084fc" scale={0.8} />
-            <FloatingAtom position={[-7, -2, -2]} color="#fbbf24" scale={0.6} />
+            <FloatingAtom position={[-7, -2, -2]} color="#ff99cc" scale={0.6} />
             <FloatingAtom position={[6, -1, -4]} color="#f472b6" scale={0.7} />
         </>
     );
