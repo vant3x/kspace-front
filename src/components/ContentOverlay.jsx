@@ -27,6 +27,18 @@ export default function ContentOverlay() {
         if (activeSection === 'message') fetchNotes();
     }, [activeSection]);
 
+    // Manage body overflow when modal is open
+    useEffect(() => {
+        if (showApodModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showApodModal]);
+
     const fetchLetter = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/letter`);
@@ -112,7 +124,7 @@ export default function ContentOverlay() {
             type: 'special',
             title: "M104: La Galaxia del Sombrero en Infrarrojo",
             date: "11 de enero de 2026",
-            content: "Este anillo flotante es del tamaño de una galaxia. M104 es famosa por su anillo de polvo oscuro, hecho de Hidrógeno molecular (H₂), los ingredientes básicos para formar nuevas estrellas... justo como nuestro camino juntos.",
+            content: "Este anillo flotante es del tamaño de una galaxia. M104 es famosa por su anillo de polvo oscuro, hecho de Hidrógeno molecular (H₂), los ingredientes básicos para formar nuevas estrellas.",
             chemicalInfo: {
                 formula: "H₂ + Dust",
                 label: "Química en la Caminata",
@@ -152,16 +164,16 @@ export default function ContentOverlay() {
                     )}
 
                     {activeSection === 'message' && (
-                        <motion.div key="message" variants={contentVariants} initial="hidden" animate="visible" exit="exit" className="card message-card masonry-container">
+                        <motion.div key="message" variants={contentVariants} initial="hidden" animate="visible" exit="exit" className="card message-card collection-container">
                             <h2>La Colección de K</h2>
-                            <div className="masonry-grid">
+                            <div className="collection-grid">
                                 {loadingNotes && notes.length === 0 ? (
                                     <p className="loading-spinner">Consultando registros cósmicos...</p>
                                 ) : (
                                     displayNotes.map((item, index) => (
                                         <motion.div
                                             key={item._id || index}
-                                            className={`masonry-item ${item.size || 'medium'} ${item.highlight ? 'highlight' : ''}`}
+                                            className={`collection-item ${item.size || 'medium'} ${item.highlight ? 'highlight' : ''} ${item.mediaType === 'video' ? 'has-video' : ''}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: index * 0.1 }}
@@ -292,14 +304,38 @@ export default function ContentOverlay() {
                                                     <strong> "Alineación planetaria perfecta"</strong>. Mientras nosotros dábamos
                                                     nuestros primeros pasos, arriba, los planetas se alineaban enmarcados por el Etna.
                                                 </p>
-                                                <p className="memory-detail">
-                                                    Tal como sucede con las órbitas celestes, nuestro encuentro fue una alineación
-                                                    de elementos que rara vez coinciden por azar. (Haz clic para ver el reporte de la NASA)
-                                                </p>
+
                                                 <div className="memory-formula-badge">
-                                                    C21H23NO5 + Luz Estelar = Conexión Real
+                                                    C21H23NO5 + Luz Estelar = Conexión
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    {/* NASA Eye Image */}
+                                    <div className="letter-static-memory" style={{ marginTop: '4rem' }}>
+                                        <div className="memory-divider">
+                                            <div className="divider-line"></div>
+                                            <Atom size={16} color="#fbbf24" />
+                                            <div className="divider-line"></div>
+                                        </div>
+                                        <div className="nasa-eye-section">
+                                            <h3 className="nasa-eye-title">NASA Eyes on the Solar System - 11 de enero de 2025</h3>
+                                            <p className="nasa-eye-description">
+                                                Visualización del Sistema Solar en el momento exacto de nuestro encuentro.
+                                            </p>
+                                            <div className="nasa-eye-container">
+                                                <img src="/img/space_data/bgnasaeye.png" alt="NASA Eyes on the Solar System" className="nasa-eye-image" />
+                                            </div>
+                                            <a
+                                                href="https://eyes.nasa.gov/apps/solar-system/#/home?time=2025-01-12T01:16:19.000+00:00"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="nasa-eye-link"
+                                            >
+                                                <Rocket size={18} />
+                                                Ver Simulación Interactiva
+                                            </a>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -412,18 +448,13 @@ export default function ContentOverlay() {
                                             cuya superficie está parcialmente iluminada por el brillo de la Tierra. En el primer plano del panorama compuesto
                                             capturado el 2 de enero, el planeta Tierra está representado por el cráter Silvestri inferior del monte Etna.
                                         </p>
-                                        <p>
-                                            Por supuesto, los cielos del anochecer de la Tierra están llenos de planetas durante todo el mes de enero.
-                                            El 13 de enero, una Luna casi llena parecerá pasar por delante de Marte para los observadores del cielo en el
-                                            territorio continental de EE.UU. y el este de Canadá.
-                                        </p>
+
                                     </div>
                                     <div className="personal-connection">
                                         <div className="connection-badge">Vínculo Registrado</div>
                                         <p>
-                                            Esta imagen fue publicada oficialmente por la NASA el mismo día que decidimos unir nuestros rumbos en persona.
-                                            Al igual que los planetas se alinearon sobre el volcán, nosotros encontramos nuestro propio equilibrio
-                                            entre todas las variables del universo. No fue casualidad, fue física de atracción pura.
+                                            Esta imagen fue publicada oficialmente en el APOD por la NASA ese día
+
                                         </p>
                                     </div>
                                 </div>

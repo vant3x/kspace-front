@@ -10,7 +10,7 @@
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(15px);
     border-radius: 12px;
-    border: 1px solid rgba(251, 191, 36, 0.2);
+    border: 1px solid rgba(217, 70, 239, 0.3);
     padding: 10px;
     color: white;
     transition: all 0.3s ease;
@@ -110,17 +110,17 @@
 
 .control-btn:hover,
 .list-btn:hover {
-    color: #fbbf24;
+    color: #f472b6;
 }
 
 .play-btn {
-    background: #fbbf24 !important;
+    background: #d946ef !important;
     border-radius: 50%;
     width: 42px;
     /* Increased size */
     height: 42px;
     /* Increased size */
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,8 +130,8 @@
 }
 
 .play-btn svg {
-    color: #000 !important;
-    fill: #000 !important;
+    color: #fff !important;
+    fill: #fff !important;
     width: 22px !important;
     height: 22px !important;
     display: block;
@@ -140,7 +140,12 @@
 .play-btn:hover {
     transform: scale(1.1);
     background: #fff !important;
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
+}
+
+.play-btn:hover svg {
+    color: #d946ef !important;
+    fill: #d946ef !important;
 }
 
 .visualizer {
@@ -156,8 +161,7 @@
 
 .bar {
     width: 3px;
-    background: #fbbf24;
-    /* Change from purple to gold */
+    background: #f472b6;
     animation: visualize 1s infinite;
 }
 
@@ -225,7 +229,6 @@
 }
 
 .playlist li.active {
-    color: #fbbf24;
-    /* Change from purple to gold */
+    color: #d946ef;
     font-weight: bold;
 }

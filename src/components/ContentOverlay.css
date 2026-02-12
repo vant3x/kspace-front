@@ -678,46 +678,47 @@
     border-color: #ef4444;
 }
 
-/* Masonry Layout */
-.masonry-container {
+/* Collection Grid Layout */
+.collection-container {
     padding: 3rem 20px 150px;
-    max-width: 1000px;
+    max-width: 1200px;
     max-height: 80vh;
-    /* Controlled height for scroll */
     overflow-y: auto !important;
     position: relative;
 }
 
-/* Scrollbar for masonry */
-.masonry-container::-webkit-scrollbar {
+/* Scrollbar for collection */
+.collection-container::-webkit-scrollbar {
     width: 6px;
 }
 
-.masonry-container::-webkit-scrollbar-thumb {
+.collection-container::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
 }
 
-.masonry-grid {
-    column-count: 3;
-    column-gap: 2rem;
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
 }
 
 @media (max-width: 768px) {
-    .masonry-grid {
-        column-count: 2;
+    .collection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    .masonry-grid {
-        column-count: 1;
+    .collection-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
-.masonry-item {
-    break-inside: avoid;
-    margin-bottom: 2rem;
+.collection-item {
     background: rgba(30, 30, 30, 0.4);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -728,9 +729,26 @@
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.masonry-item::before {
+/* Size variants */
+.collection-item.tall {
+    grid-row: span 2;
+}
+
+.collection-item.wide {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .collection-item.wide {
+        grid-column: span 1;
+    }
+}
+
+.collection-item::before {
     content: '';
     position: absolute;
     top: 0;
@@ -743,14 +761,14 @@
     pointer-events: none;
 }
 
-.masonry-item:hover {
+.collection-item:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: rgba(255, 255, 255, 0.3);
     z-index: 10;
 }
 
-.masonry-item:hover::before {
+.collection-item:hover::before {
     opacity: 1;
 }
 
@@ -1050,18 +1068,18 @@
     border: 1px solid rgba(251, 191, 36, 0.3);
 }
 
-.masonry-item p {
+.collection-item p {
     margin: 0;
     font-size: 0.95rem;
     color: #e5e5e5;
     line-height: 1.6;
 }
 
-.masonry-item.small p {
+.collection-item.small p {
     font-size: 0.9rem;
 }
 
-.masonry-item.medium p {
+.collection-item.medium p {
     font-size: 1rem;
     font-weight: 500;
 }
@@ -1071,12 +1089,35 @@
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     position: relative;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Aspect ratio for videos */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 /* Remove bottom margin if it's just media */
-.masonry-item p:empty+.media-wrapper,
+.collection-item p:empty+.media-wrapper,
 .media-wrapper:only-child {
     margin-bottom: 0;
 }
@@ -1084,17 +1125,15 @@
 .media-wrapper img {
     width: 100%;
     height: auto;
+    min-height: 200px;
+    max-height: 500px;
+    object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
 }
 
-.masonry-item:hover img {
+.collection-item:hover img {
     transform: scale(1.05);
-}
-
-.media-wrapper.video {
-    position: relative;
-    cursor: pointer;
 }
 
 .video-player {
@@ -1109,9 +1148,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.6);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1119,13 +1158,14 @@
     color: white;
     font-size: 14px;
     pointer-events: none;
-    /* Let video handle clicks */
-    transition: opacity 0.3s;
+    transition: all 0.3s;
+    z-index: 2;
 }
 
-.masonry-item:hover .play-icon {
-    background: rgba(251, 191, 36, 0.8);
+.collection-item:hover .play-icon {
+    background: rgba(251, 191, 36, 0.9);
     color: black;
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .heart-floater {
@@ -1515,6 +1555,82 @@
     margin-top: 1rem;
 }
 
+/* NASA Eye Image Styles */
+.nasa-eye-section {
+    text-align: center;
+}
+
+.nasa-eye-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    color: #fbbf24;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nasa-eye-description {
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.nasa-eye-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.nasa-eye-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
+    transition: transform 0.5s ease;
+}
+
+.nasa-eye-image:hover {
+    transform: scale(1.02);
+}
+
+.nasa-eye-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    color: #fbbf24;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+}
+
+.nasa-eye-link:hover {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: #fbbf24;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+}
+
+.nasa-eye-link svg {
+    transition: transform 0.3s ease;
+}
+
+.nasa-eye-link:hover svg {
+    transform: translateX(3px);
+}
+
 @media (max-width: 768px) {
     .static-memory-content {
         grid-template-columns: 1fr;
@@ -1685,6 +1801,8 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .apod-modal-content {
@@ -1697,6 +1815,7 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+    cursor: default;
 }
 
 .modal-close {
@@ -1726,6 +1845,23 @@
     overflow-y: auto;
     max-height: 90vh;
     padding-bottom: 3rem;
+}
+
+.modal-scroll-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-scroll-area::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-scroll-area::-webkit-scrollbar-thumb {
+    background: rgba(251, 191, 36, 0.3);
+    border-radius: 4px;
+}
+
+.modal-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 191, 36, 0.5);
 }
 
 .modal-image-full {

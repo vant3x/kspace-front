@@ -55,6 +55,8 @@ const IntroAudio = () => {
                     if (audioRef.current) {
                         audioRef.current.pause();
                         audioRef.current.currentTime = 0;
+                        // Start the music player automatically
+                        useStore.getState().setIsPlaying(true);
                     }
                     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
                 }

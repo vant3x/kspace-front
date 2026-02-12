@@ -92,7 +92,7 @@ export default function MusicPlayer() {
 
             {showPlaylist && (
                 <div className="playlist">
-                    <h3>Your Playlist</h3>
+                    <h3>Tu Playlist</h3>
                     <ul>
                         {tracks.map((track, idx) => (
                             <li

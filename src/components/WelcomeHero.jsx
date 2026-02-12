@@ -40,10 +40,55 @@ function WhiteStarField() {
             </bufferGeometry>
             <pointsMaterial
                 size={0.05}
-                color="#ffffff"
+                color="#ffd1ff"
                 sizeAttenuation
                 transparent
-                opacity={0.8}
+                opacity={0.6}
+            />
+        </points>
+    );
+}
+
+// Animated Particle Field - Purple Cosmic Dust
+function PurpleParticleField() {
+    const points = useRef();
+    const particleCount = 800;
+
+    const particles = useMemo(() => {
+        const temp = [];
+        for (let i = 0; i < particleCount; i++) {
+            const x = (Math.random() - 0.5) * 80;
+            const y = (Math.random() - 0.5) * 80;
+            const z = (Math.random() - 0.5) * 80;
+            temp.push(x, y, z);
+        }
+        return new Float32Array(temp);
+    }, []);
+
+    useFrame((state) => {
+        if (points.current) {
+            points.current.rotation.y = -state.clock.elapsedTime * 0.03;
+            points.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
+        }
+    });
+
+    return (
+        <points ref={points}>
+            <bufferGeometry>
+                <bufferAttribute
+                    attach="attributes-position"
+                    count={particles.length / 3}
+                    array={particles}
+                    itemSize={3}
+                />
+            </bufferGeometry>
+            <pointsMaterial
+                size={0.1}
+                color="#d946ef"
+                sizeAttenuation
+                transparent
+                opacity={0.3}
+                blending={THREE.AdditiveBlending}
             />
         </points>
     );
@@ -166,18 +211,20 @@ function FloatingAtom({ position, color = "#fbbf24", scale = 1 }) {
 function Scene3D() {
     return (
         <>
-            <ambientLight intensity={0.3} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="#fbbf24" />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#fff" />
+            <ambientLight intensity={0.4} />
+            <pointLight position={[10, 10, 10]} intensity={1.5} color="#d946ef" />
+            <pointLight position={[-10, -10, -10]} intensity={0.8} color="#fbbf24" />
+            <pointLight position={[0, 5, -5]} intensity={0.5} color="#8b5cf6" />
 
             {/* Layered particle systems for depth */}
             <WhiteStarField />
+            <PurpleParticleField />
             <GoldenParticleField />
             <DNAHelix />
 
-            <FloatingAtom position={[-6, 2, -3]} color="#fbbf24" scale={0.8} />
-            <FloatingAtom position={[-7, -2, -2]} color="#fff" scale={0.6} />
-            <FloatingAtom position={[6, -1, -4]} color="#fbbf24" scale={0.7} />
+            <FloatingAtom position={[-6, 2, -3]} color="#c084fc" scale={0.8} />
+            <FloatingAtom position={[-7, -2, -2]} color="#fbbf24" scale={0.6} />
+            <FloatingAtom position={[6, -1, -4]} color="#f472b6" scale={0.7} />
         </>
     );
 }
@@ -209,7 +256,7 @@ export default function WelcomeHero({ onExplore }) {
                                 whileHover={{
                                     scale: 1.2,
                                     color: "#fff",
-                                    textShadow: "0 0 50px rgba(251, 191, 36, 1)",
+                                    textShadow: "0 0 50px rgba(217, 70, 239, 1)",
                                     transition: { duration: 0.2 }
                                 }}
                                 transition={{
@@ -233,9 +280,9 @@ export default function WelcomeHero({ onExplore }) {
                             className="hero-subtitle"
                             animate={{
                                 textShadow: [
-                                    "0 0 10px rgba(251, 191, 36, 0.5)",
-                                    "0 0 20px rgba(251, 191, 36, 0.8)",
-                                    "0 0 10px rgba(251, 191, 36, 0.5)"
+                                    "0 0 10px rgba(217, 70, 239, 0.5)",
+                                    "0 0 20px rgba(244, 114, 182, 0.8)",
+                                    "0 0 10px rgba(217, 70, 239, 0.5)"
                                 ]
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
@@ -268,10 +315,10 @@ export default function WelcomeHero({ onExplore }) {
                         <div className="signal-ring"></div>
                         <div className="signal-ring"></div>
                         <div className="signal-core">
-                            <StarsIcon size={14} color="#fbbf24" />
+                            <StarsIcon size={14} color="#d946ef" />
                         </div>
-                        <div className="orbital-dot"></div>
-                        <div className="orbital-dot"></div>
+                        <div className="orbital-dot purple"></div>
+                        <div className="orbital-dot pink"></div>
                     </div>
                 </motion.div>
 
@@ -286,9 +333,9 @@ export default function WelcomeHero({ onExplore }) {
                         onClick={onExplore}
                         animate={{
                             boxShadow: [
-                                "0 0 20px rgba(251, 191, 36, 0.3)",
-                                "0 0 40px rgba(251, 191, 36, 0.6)",
-                                "0 0 20px rgba(251, 191, 36, 0.3)"
+                                "0 0 20px rgba(217, 70, 239, 0.3)",
+                                "0 0 40px rgba(244, 114, 182, 0.6)",
+                                "0 0 20px rgba(217, 70, 239, 0.3)"
                             ]
                         }}
                         transition={{ duration: 2, repeat: Infinity }}

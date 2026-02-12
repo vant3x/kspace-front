@@ -4,7 +4,8 @@ import { useStore } from '../store';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import './ProtectionLayer.css';
 
-// Placeholder sound
+// Password is stored in sessionStorage - only required once per browser session
+// When the browser is closed, the password will be required again
 const PASSCODE = "eureka";
 
 export default function ProtectionLayer() {
